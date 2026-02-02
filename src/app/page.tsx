@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 
 export default function Home() {
@@ -13,14 +15,16 @@ export default function Home() {
             <h1 className="text-2xl font-bold tracking-tighter italic">GORILLA ARENA</h1>
           </div>
           <nav className="hidden md:flex items-center gap-10">
-            <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors">Arenas</a>
-            <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors">The Vault</a>
-            <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors text-alert-red">Roast Feed</a>
+            <a href="#active-hunts" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors">Arenas</a>
+            <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors">Leaderboard</a>
             <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors">Stats</a>
           </nav>
           <div className="flex items-center gap-4">
+            <button className="text-white text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors px-4">
+              Login
+            </button>
             <button className="bg-primary text-black px-6 py-2 rounded-lg font-bold uppercase text-xs tracking-widest hover:bg-white transition-all">
-              Connect Wallet
+              Sign Up
             </button>
             <div className="w-10 h-10 rounded-full bg-card-dark border border-primary/30 flex items-center justify-center overflow-hidden">
               <img
@@ -56,11 +60,12 @@ export default function Home() {
               The only platform where AI <span className="text-alert-red font-bold uppercase">roasts</span> your failure or <span className="text-primary font-bold uppercase">rewards</span> your grind. Step up or stay broke.
             </p>
             <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-              <a href="/onboarding" className="w-full md:w-auto">
-                <button className="w-full px-12 py-5 bg-primary text-black font-black uppercase italic text-xl rounded-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(6,249,107,0.3)]">
-                  Enter the Arena
-                </button>
-              </a>
+              <button
+                onClick={() => document.getElementById('active-hunts')?.scrollIntoView({ behavior: 'smooth' })}
+                className="w-full md:w-auto px-12 py-5 bg-primary text-black font-black uppercase italic text-xl rounded-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(6,249,107,0.3)]"
+              >
+                Enter the Arena
+              </button>
               <button className="w-full md:w-auto px-12 py-5 border-2 border-white text-white font-black uppercase italic text-xl rounded-lg hover:bg-white hover:text-black transition-all">
                 How it Works
               </button>
@@ -115,7 +120,7 @@ export default function Home() {
         </section>
 
         {/* Arena Selection Header */}
-        <section className="max-w-7xl mx-auto px-6 pt-10">
+        <section id="active-hunts" className="max-w-7xl mx-auto px-6 pt-10">
           <div className="flex items-end justify-between border-b border-white/10 pb-4">
             <div>
               <h2 className="text-5xl font-black tracking-tighter uppercase italic">Active Hunts</h2>
@@ -164,9 +169,11 @@ export default function Home() {
                     <p className="text-[10px] uppercase font-bold tracking-widest text-alert-red">48H Remaining</p>
                   </div>
                 </div>
-                <button className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest text-sm rounded-lg group-hover:shadow-[0_0_20px_rgba(6,249,107,0.4)] transition-all">
-                  Join the Hunt
-                </button>
+                <a href="/onboarding" className="block w-full">
+                  <button className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest text-sm rounded-lg group-hover:shadow-[0_0_20px_rgba(6,249,107,0.4)] transition-all">
+                    Join the Hunt
+                  </button>
+                </a>
               </div>
             </div>
 
@@ -199,9 +206,11 @@ export default function Home() {
                     <p className="text-[10px] uppercase font-bold tracking-widest text-alert-red">Starts in 6H</p>
                   </div>
                 </div>
-                <button className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest text-sm rounded-lg group-hover:shadow-[0_0_20px_rgba(6,249,107,0.4)] transition-all">
-                  Lock In
-                </button>
+                <a href="/onboarding" className="block w-full">
+                  <button className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest text-sm rounded-lg group-hover:shadow-[0_0_20px_rgba(6,249,107,0.4)] transition-all">
+                    Join the Hunt
+                  </button>
+                </a>
               </div>
             </div>
 
@@ -237,9 +246,11 @@ export default function Home() {
                     <p className="text-[10px] uppercase font-bold tracking-widest text-alert-red italic font-black">Limited Spots</p>
                   </div>
                 </div>
-                <button className="w-full py-4 bg-white text-black font-black uppercase tracking-widest text-sm rounded-lg hover:bg-primary transition-all">
-                  Enter the Void
-                </button>
+                <a href="/onboarding" className="block w-full">
+                  <button className="w-full py-4 bg-white text-black font-black uppercase tracking-widest text-sm rounded-lg hover:bg-primary transition-all">
+                    Join the Hunt
+                  </button>
+                </a>
               </div>
             </div>
           </div>

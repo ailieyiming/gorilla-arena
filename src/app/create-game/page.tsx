@@ -9,6 +9,15 @@ export default function CreateGamePage() {
     const [isLoading, setIsLoading] = useState(false);
     const [duration, setDuration] = useState(7);
     const [fee, setFee] = useState(50);
+    const [effectiveDate, setEffectiveDate] = useState(new Date().toISOString().split('T')[0]);
+
+    const calculateExpiryDate = (start: string, days: number) => {
+        const date = new Date(start);
+        date.setDate(date.getDate() + days);
+        return date.toISOString().split('T')[0];
+    };
+
+    const expiryDate = calculateExpiryDate(effectiveDate, duration);
 
     const handleConfirm = () => {
         setIsLoading(true);
@@ -122,6 +131,24 @@ export default function CreateGamePage() {
                                                 <span className="material-symbols-outlined">add</span>
                                             </button>
                                         </div>
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-sm font-bold uppercase tracking-widest text-gray-300">Effective Date</label>
+                                        <input
+                                            className="bg-field-dark border border-border-dark text-white p-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all text-lg font-bold"
+                                            type="date"
+                                            value={effectiveDate}
+                                            onChange={(e) => setEffectiveDate(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-sm font-bold uppercase tracking-widest text-gray-300">Expiry Date (Calculated)</label>
+                                        <input
+                                            readOnly
+                                            className="bg-field-dark border border-border-dark text-white/50 p-4 outline-none transition-all text-lg font-bold cursor-not-allowed"
+                                            type="date"
+                                            value={expiryDate}
+                                        />
                                     </div>
                                 </div>
                             </div>
