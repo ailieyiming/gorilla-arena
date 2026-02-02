@@ -49,6 +49,10 @@ export default function DashboardPage() {
                         <a className="hover:text-[#06f96b] transition-colors" href="#">Stats</a>
                     </nav>
                     <div className="flex items-center gap-4">
+                        <div className="hidden md:flex items-center gap-2 bg-[#162c1e] px-3 py-1.5 rounded border border-[#3a5545] shadow-[0_0_10px_rgba(6,249,107,0.1)]">
+                            <span className="material-symbols-outlined text-[#06f96b] text-sm">account_balance_wallet</span>
+                            <span className="text-white font-bold text-sm tracking-wider">1,000</span>
+                        </div>
                         <div className="text-right hidden sm:block">
                             <p className="text-[10px] uppercase font-bold text-[#9bbba8] leading-none">Soldier Status</p>
                             <p className="text-[#06f96b] font-bold tracking-tight">RANK: SILVER BACK</p>
