@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function Home() {
   return (
-    <div className="font-display">
+    <div className="font-display pb-20">
       {/* Top Navigation */}
       <header className="fixed top-0 w-full z-50 border-b border-white/10 bg-background-dark/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">

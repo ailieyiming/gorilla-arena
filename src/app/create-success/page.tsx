@@ -14,7 +14,7 @@ export default function CreateSuccessPage() {
     };
 
     return (
-        <div className="bg-background-dark font-display text-white selection:bg-primary selection:text-black min-h-screen">
+        <div className="bg-background-dark font-display text-white selection:bg-primary selection:text-black min-h-screen pb-20 overflow-y-auto">
             <style jsx global>{`
                 :root {
                     --color-primary: #13ec5b;

@@ -15,7 +15,7 @@ export default function OnboardingPage() {
     };
 
     return (
-        <div className="relative flex h-screen w-full flex-col overflow-hidden bg-[#050a05] text-white font-[family-name:var(--font-space-grotesk)] selection:bg-[#0df20d] selection:text-black">
+        <div className="relative flex min-h-screen w-full flex-col overflow-y-auto bg-[#050a05] text-white font-[family-name:var(--font-space-grotesk)] selection:bg-[#0df20d] selection:text-black pb-20">
             {/* Top Navigation */}
             <header className="flex items-center justify-between border-b border-white/10 px-6 py-4 md:px-10">
                 <div className="flex items-center gap-3">

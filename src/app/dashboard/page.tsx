@@ -17,7 +17,7 @@ export default function DashboardPage() {
     }, []);
 
     return (
-        <div className="bg-[#0f2317] font-[family-name:var(--font-space-grotesk)] text-white min-h-screen selection:bg-[#06f96b] selection:text-black relative">
+        <div className="bg-[#0f2317] font-[family-name:var(--font-space-grotesk)] text-white min-h-screen selection:bg-[#06f96b] selection:text-black relative pb-20 overflow-y-auto overflow-x-hidden">
             <style jsx global>{`
         .industrial-grid {
             background-image: radial-gradient(circle, #3a5545 1px, transparent 1px);

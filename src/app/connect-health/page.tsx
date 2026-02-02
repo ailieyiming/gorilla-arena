@@ -29,7 +29,7 @@ export default function ConnectHealthPage() {
     }
 
     return (
-        <div className="bg-void-black font-[family-name:var(--font-oswald)] min-h-screen text-white overflow-hidden relative flex flex-col">
+        <div className="bg-void-black font-[family-name:var(--font-oswald)] min-h-screen text-white overflow-y-auto relative flex flex-col pb-20">
             <div className="absolute top-0 w-full h-[100px] z-10 pointer-events-none bg-gradient-to-t from-[rgba(0,255,65,0)] via-[rgba(0,255,65,0.05)] to-[rgba(0,255,65,0)]"></div>
 
             {/* Top Navigation */}

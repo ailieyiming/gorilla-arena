@@ -17,7 +17,7 @@ export default function HistoryPage() {
     }, []);
 
     return (
-        <div className="bg-[#020202] text-white font-[family-name:var(--font-oswald)] min-h-screen relative overflow-x-hidden industrial-texture">
+        <div className="bg-[#020202] text-white font-[family-name:var(--font-oswald)] min-h-screen relative overflow-y-auto overflow-x-hidden industrial-texture pb-20">
             <style jsx global>{`
         .industrial-texture {
             background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.02) 1px, transparent 0);

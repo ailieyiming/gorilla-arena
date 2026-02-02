@@ -23,7 +23,7 @@ export default function PaymentPage() {
             {/* Scanline Overlay */}
             <div className="fixed inset-0 scanline opacity-20 z-50 pointer-events-none"></div>
 
-            <div className="flex h-full grow flex-col min-h-screen">
+            <div className="flex grow flex-col min-h-screen pb-20">
                 {/* Top Navigation Bar */}
                 <header className="flex items-center justify-between border-b border-metal-gray bg-[#050505] px-6 py-4 md:px-10 relative z-50">
                     <div className="flex items-center gap-3">
