@@ -2,11 +2,26 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import React, { useEffect, useState } from 'react';
+import { getActivePublicBets } from "@/lib/supabase";
 
-import React from 'react';
+const ARENA_IMAGES = [
+  '/arena-1.jpg',
+  '/arena-2.jpg',
+  '/arena-3.jpg'
+];
 
 export default function Home() {
   const router = useRouter();
+  const [activeBets, setActiveBets] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function loadBets() {
+      const bets = await getActivePublicBets();
+      setActiveBets(bets);
+    }
+    loadBets();
+  }, []);
 
   const handleJoin = (amount: number) => {
     localStorage.setItem("selected_entry_fee", amount.toString());
@@ -30,81 +45,89 @@ export default function Home() {
             <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors">Stats</a>
           </nav>
           <div className="flex items-center gap-4">
-            <button className="text-white text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors px-4">
-              Login
-            </button>
-            <button className="bg-primary text-black px-6 py-2 rounded-lg font-bold uppercase text-xs tracking-widest hover:bg-white transition-all">
-              Sign Up
-            </button>
-            <div className="w-10 h-10 rounded-full bg-card-dark border border-primary/30 flex items-center justify-center overflow-hidden">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkp_FbGpjwCfvdx_78a4_UtMj4jJ0pxJdSHLDvR7xFLBHDzxNimvZWyNhCcnQEWA-74qI-FrkiO1ot8KTPA-NnB2l--ENmEYtnKx4Y2rjMDw6ofRMOgYuV0NFx_aKQMGMeyxcHXsJny8VmZhVBdrLgxehJdjdV90p_L2jpH0f19Tjzjjsb3WGaq7GjMAeLnQdVCETzaRmRhjxvK7m4gJrjInMxVnV-ceQmv-wNiu_7gjWvxUjXITOBsPR9s1vpjnShYGG65wMXmVFV"
-                alt="User cyberpunk avatar profile silhouette"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <a href="/onboarding">
+              <button className="px-6 py-2 border-2 border-white rounded-full font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-all">
+                Login / Sign Up
+              </button>
+            </a>
           </div>
         </div>
       </header>
 
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative min-h-[80vh] flex items-center justify-center px-6 overflow-hidden">
-          <div className="absolute inset-0 opacity-40">
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background-dark/50 to-background-dark"></div>
-            <div
-              className="w-full h-full bg-center bg-cover"
-              style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDaTLpg07u2Orq78dIEKDbta5Vmteo0y6sj0Xd5nYHwyQs79jBrDt4XtREJRIArVxFO5D3gOi7WDYFT3TK4bxSLhhmz19qCZMpypNDjnscVIkAebNRQLzHEYIxPy4j7ymLjus6Hcn-5O3Slogqbga-wxHh8X35dHXpj4_eLQz42lnjOOLiHVKMbmKZJ-iJX8XkSkD_qqz-mNSOS7gllBzuzLeNVBN2rzrQsnSSivr-UdMnnrOlgOKxd0ppe7gZ8fUTZAtorrxBWNbgt")' }}
-            ></div>
+        <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/arena-3.jpg"
+              alt="Gritty black and white authentic gym workout"
+              fill
+              className="object-cover object-top grayscale brightness-50"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
           </div>
-          <div className="relative z-10 text-center max-w-5xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded border border-primary/50 bg-primary/10 mb-8">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              <span className="text-[10px] uppercase font-bold tracking-[0.3em] text-primary">System Online: 4,129 Hunters Active</span>
-            </div>
-            <h1 className="text-6xl md:text-9xl font-black tracking-tighter uppercase leading-[0.9] mb-8 glitch-text">
-              Bet on your feet.<br />
-              <span className="text-primary">Win your lunch.</span>
+
+          <div className="z-10 text-center max-w-5xl px-4 pb-40">
+            <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none block mb-2 italic">
+              BET ON <br className="md:hidden" /> YOUR FEET.
             </h1>
-            <p className="text-xl md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto font-light">
-              The only platform where AI <span className="text-alert-red font-bold uppercase">roasts</span> your failure or <span className="text-primary font-bold uppercase">rewards</span> your grind. Step up or stay broke.
+            <h1 className="text-5xl md:text-7xl font-black text-[#00ff00] tracking-tighter leading-none block italic">
+              WIN YOUR LUNCH.
+            </h1>
+            <p className="mt-6 text-xl md:text-2xl font-medium text-gray-300 max-w-2xl mx-auto">
+              The only platform where AI <span className="text-red-500 font-bold">ROASTS</span> your failure or <span className="text-[#00ff00] font-bold">REWARDS</span> your grind. Step up or stay broke.
             </p>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-              <button
-                onClick={() => document.getElementById('active-hunts')?.scrollIntoView({ behavior: 'smooth' })}
-                className="w-full md:w-auto px-12 py-5 bg-primary text-black font-black uppercase italic text-xl rounded-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(6,249,107,0.3)]"
-              >
-                Enter the Arena
-              </button>
-              <button className="w-full md:w-auto px-12 py-5 border-2 border-white text-white font-black uppercase italic text-xl rounded-lg hover:bg-white hover:text-black transition-all">
-                How it Works
+
+            <div className="flex justify-center gap-4 mt-8">
+              <a href="#active-hunts">
+                <button className="bg-[#00ff00] text-black px-8 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:bg-white transition-all transform hover:scale-105">
+                  ENTER THE ARENA
+                </button>
+              </a>
+              <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:bg-white hover:text-black transition-all">
+                HOW IT WORKS
               </button>
             </div>
           </div>
 
-          {/* Stats Ticker */}
-          <div className="absolute bottom-0 w-full bg-primary py-3 overflow-hidden whitespace-nowrap border-y border-black">
-            <div className="flex animate-marquee">
-              <div className="flex gap-12 items-center text-black font-black uppercase text-sm tracking-widest">
-                <span>S$1,250 Payouts Distributed Today</span>
-                <span className="material-symbols-outlined">bolt</span>
-                <span>Latest Roast: "User_882 walked 100 steps. My toaster does more exercise."</span>
-                <span className="material-symbols-outlined">bolt</span>
-                <span>S$1,250 Payouts Distributed Today</span>
-                <span className="material-symbols-outlined">bolt</span>
-                <span>Latest Win: Hunter_Alpha took S$450 from the Commuter Pot</span>
-                <span className="material-symbols-outlined">bolt</span>
+          <div className="absolute bottom-0 w-full z-10 border-t border-white/20 bg-black/50 backdrop-blur-md">
+            <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div>
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Total Staked</p>
+                <p className="text-3xl font-black text-white italic">S$42,050</p>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Active Hunters</p>
+                <p className="text-3xl font-black text-white italic">1,240</p>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Success Rate</p>
+                <p className="text-3xl font-black text-white italic">18%</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Stats Grid */}
-        <section className="max-w-7xl mx-auto px-6 py-20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Stats / Marquee Section */}
+        <div className="bg-primary overflow-hidden py-3">
+          <div className="flex gap-8 animate-marquee whitespace-nowrap text-black font-black uppercase tracking-widest text-lg">
+            <span>///// RECENT WINNER: SARAH_K (S$450) /////</span>
+            <span>///// NEW ARENA OPENING IN 6H /////</span>
+            <span>///// GORILLA PROTOCOL V1.0 LIVE /////</span>
+            <span>///// RECENT WINNER: JACK_M (S$1,200) /////</span>
+            <span>///// RECENT WINNER: SARAH_K (S$450) /////</span>
+            <span>///// NEW ARENA OPENING IN 6H /////</span>
+          </div>
+        </div>
+
+        {/* Info Grid */}
+        <section className="bg-black py-20 px-6">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-card-dark p-8 rounded-xl border border-white/5 cyber-border">
-              <p className="text-gray-500 uppercase text-xs font-bold tracking-widest mb-2">Total Pool Value</p>
-              <h3 className="text-4xl font-black text-primary tracking-tighter">S$48,920.00</h3>
+              <p className="text-gray-500 uppercase text-xs font-bold tracking-widest mb-2">Platform Growth</p>
+              <h3 className="text-4xl font-black text-white tracking-tighter">Exponential</h3>
               <div className="flex items-center gap-2 mt-2 text-primary">
                 <span className="material-symbols-outlined text-sm">trending_up</span>
                 <span className="text-xs font-bold uppercase">+24% vs Last Week</span>
@@ -147,126 +170,92 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Arena Image Grid */}
+        {/* Dynamic Arena Image Grid */}
         <section className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Arena Card 1 */}
-            <div className="group relative bg-card-dark rounded-xl border border-white/10 overflow-hidden hover:border-primary transition-all duration-300">
-              <div className="aspect-[4/5] relative">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6z1omYTK_6jxx1jOq2YExyOQhG5UxMfFPpljfjFocbuKsBDofLr3AqqNje9ofCIR4TJCme_DkkmR39kZGfLrtT6cTumfFpoj41GUg0iGnaLB7xEQHEoUkTBN1fpBgp89LJRctQhbqA4OvtCVSGifVGo03EZziORak1169iKvNMcNFuspXEg5zYOVuY9MSYv4pcnfvf8yHFg9H0ouBR5AiFk1x26O4y3G5ayBp9M2IVw1X-nDy_IjEXJmQaaF4sfoozy5AoeFNLUfp"
-                  alt="Cyberpunk city morning commute neon lights"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                <div className="absolute top-4 left-4 bg-black/80 px-3 py-1 border border-primary/40 rounded">
-                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Entry: S$10</span>
-                </div>
-              </div>
-              <div className="p-6 relative">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-2xl font-bold uppercase tracking-tight">The Commuter Arena</h3>
-                    <p className="text-primary text-sm font-bold">8,000 Steps Daily</p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="text-gray-400">
-                    <p className="text-[10px] uppercase font-bold tracking-widest">Live Pot Size</p>
-                    <p className="text-3xl font-black text-white tracking-tighter italic">S$450.00</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-[10px] uppercase font-bold tracking-widest text-alert-red">48H Remaining</p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => handleJoin(10)}
-                  className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest text-sm rounded-lg group-hover:shadow-[0_0_20px_rgba(6,249,107,0.4)] transition-all"
-                >
-                  Join the Hunt
-                </button>
-              </div>
-            </div>
+          {activeBets.length === 0 ? (
+            <div className="text-white text-center opacity-50">Loading available hunts or no active hunts found...</div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {activeBets.map((bet, index) => {
+                const now = new Date();
+                const expiry = bet.expiry_date ? new Date(bet.expiry_date) : null; // Assuming bets have expiry_date
+                const effectiveDate = bet.effective_date ? new Date(bet.effective_date) : (bet.created_at ? new Date(bet.created_at) : new Date());
 
-            {/* Arena Card 2 */}
-            <div className="group relative bg-card-dark rounded-xl border border-white/10 overflow-hidden hover:border-primary transition-all duration-300">
-              <div className="aspect-[4/5] relative">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5j6WfWrq6cv0fGx40zXht6LgVqaQlOSdtBAbuvg6tR5iakGz1qoBgTRsBXzw4MdXA7ICWZz3e7cPuG3ygl9n-IKHk7vR5f8vdLItGnJEMeX9a_wOiGFzKYRkQklplil4z2UpfvDbbNkSqe2xJe_QqPLM_IiLo3d4CjostyY_AqgANK8RRhWNZzHGmqnZaaOnQfjH7rPmP7DHZXob0Xy_QY_pxj40yXo-r_An-P5qySHJUlZ8zBBDvXH0Yj-uQlg5yMzm2htNYF9KU"
-                  alt="Aggressive fitness training neon gym vibes"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                <div className="absolute top-4 left-4 bg-black/80 px-3 py-1 border border-primary/40 rounded">
-                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Entry: S$25</span>
-                </div>
-              </div>
-              <div className="p-6 relative">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-2xl font-bold uppercase tracking-tight">Weekend Warrior</h3>
-                    <p className="text-primary text-sm font-bold">15,000 Steps Daily</p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="text-gray-400">
-                    <p className="text-[10px] uppercase font-bold tracking-widest">Live Pot Size</p>
-                    <p className="text-3xl font-black text-white tracking-tighter italic">S$1,200.00</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-[10px] uppercase font-bold tracking-widest text-alert-red">Starts in 6H</p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => handleJoin(25)}
-                  className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest text-sm rounded-lg group-hover:shadow-[0_0_20px_rgba(6,249,107,0.4)] transition-all"
-                >
-                  Join the Hunt
-                </button>
-              </div>
-            </div>
+                // If expired, skip (handled in filter usually, but here just in case)
+                if (expiry && expiry < now) return null;
 
-            {/* Arena Card 3 */}
-            <div className="group relative bg-card-dark rounded-xl border-2 border-primary/20 overflow-hidden hover:border-primary transition-all duration-300 shadow-[0_0_40px_rgba(6,249,107,0.1)]">
-              <div className="aspect-[4/5] relative">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMFk6kSm5HEKVqBzMsqtnikJI3ZCZxJiVbiwXY995mduRN8bzMEcHa8DSt8eVbl5t6kIKbnygkAj_QTUGjSyAwHb8NtOmE9Tg017gq0q9C4Q9vzmmQ7LVQvmn4uSDeymoF2Q4VjF_12ny3Oqkw_huq2Fg7IYojD9zSrVYTOozM_lylTJUNSB6Sjvwnu_K20v3thoOUrI08Tc9o13P5cOmYLEMYrpXj7tF_F7AIm-utJW64-ilzY4NlC8VC7_xpck-WGUpf9pTtxqeS"
-                  alt="Dark futuristic skyline predator hunt vibe"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                <div className="absolute top-4 left-4 bg-primary px-3 py-1 rounded">
-                  <span className="text-[10px] font-bold text-black uppercase tracking-widest">Entry: S$100</span>
-                </div>
-                <div className="absolute top-4 right-4 bg-alert-red px-2 py-1 rounded animate-pulse">
-                  <span className="text-[10px] font-bold text-white uppercase tracking-widest">High Risk</span>
-                </div>
-              </div>
-              <div className="p-6 relative">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-2xl font-bold uppercase tracking-tight">The Apex Predator</h3>
-                    <p className="text-primary text-sm font-bold">25,000 Steps Daily</p>
+                const isFuture = effectiveDate > now;
+                const description = bet.description || "Challenge Description";
+                const potSize = bet.pot_size ? `S$${bet.pot_size}` : "S$450.00"; // Fallback or dynamic
+
+                // Image selection logic
+                const imageSrc = ARENA_IMAGES[index % ARENA_IMAGES.length];
+
+                // If future, calculate hours remaining
+                let timeRemainingLabel = "Live Now";
+                if (isFuture) {
+                  const diffMs = effectiveDate.getTime() - now.getTime();
+                  const diffHrs = Math.ceil(diffMs / (1000 * 60 * 60));
+                  timeRemainingLabel = `Starts in ${diffHrs}H`;
+                }
+
+                return (
+                  <div
+                    key={bet.id}
+                    className={`group relative bg-card-dark rounded-xl border border-white/10 overflow-hidden transition-all duration-300 ${isFuture ? 'opacity-50 grayscale cursor-not-allowed' : 'hover:border-primary'}`}
+                  >
+                    <div className="aspect-[4/5] relative bg-[#050505]">
+                      <Image
+                        src={imageSrc}
+                        alt={bet.title || "Arena Background"}
+                        fill
+                        className="object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-500"
+                      />
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+
+                      <div className="absolute top-4 left-4 bg-black/80 px-3 py-1 border border-primary/40 rounded z-10">
+                        <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Entry: S${bet.amount}</span>
+                      </div>
+
+                      {bet.amount >= 100 && (
+                        <div className="absolute top-4 right-4 bg-alert-red px-2 py-1 rounded z-10">
+                          <span className="text-[10px] font-bold text-white uppercase tracking-widest">High Stakes</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-6 relative">
+                      <div className="flex justify-between items-start mb-4">
+                        <div>
+                          <h3 className="text-xl font-bold uppercase tracking-tight">{bet.title || 'Unknown Hunt'}</h3>
+                          <p className="text-primary text-xs font-bold mt-1">{description}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between mb-6">
+                        <div className="text-gray-400">
+                          <p className="text-[10px] uppercase font-bold tracking-widest">Live Pot Size</p>
+                          <p className="text-2xl font-black text-white tracking-tighter italic">{potSize}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className={`text-[10px] uppercase font-bold tracking-widest ${isFuture ? 'text-alert-red' : 'text-primary'}`}>
+                            {timeRemainingLabel}
+                          </p>
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={() => !isFuture && handleJoin(bet.amount)}
+                        disabled={isFuture}
+                        className={`w-full py-4 font-black uppercase tracking-widest text-sm rounded-lg transition-all ${isFuture ? 'bg-gray-800 text-gray-500' : 'bg-primary text-black group-hover:shadow-[0_0_20px_rgba(6,249,107,0.4)]'}`}
+                      >
+                        {isFuture ? 'Coming Soon' : 'Join the Hunt'}
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="text-gray-400">
-                    <p className="text-[10px] uppercase font-bold tracking-widest">Live Pot Size</p>
-                    <p className="text-3xl font-black text-primary tracking-tighter italic">S$4,000.00</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-[10px] uppercase font-bold tracking-widest text-alert-red italic font-black">Limited Spots</p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => handleJoin(100)}
-                  className="w-full py-4 bg-white text-black font-black uppercase tracking-widest text-sm rounded-lg hover:bg-primary transition-all"
-                >
-                  Join the Hunt
-                </button>
-              </div>
+                );
+              })}
             </div>
-          </div>
+          )}
         </section>
 
         {/* Footer */}

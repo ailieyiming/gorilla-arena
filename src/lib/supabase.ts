@@ -80,3 +80,36 @@ export async function createBetAndDeductBalance(
 
     return true;
 }
+
+export async function checkUserExists(username: string) {
+    const { data, error } = await supabase
+        .from('users')
+        .select('id, username')
+        .eq('username', username)
+        .single();
+
+    if (error && error.code !== 'PGRST116') { // PGRST116 is "Row not found"
+        console.error("Error checking user:", error);
+    }
+
+    return data; // Returns user object if exists, null otherwise
+}
+
+export async function getActivePublicBets() {
+    // Fetch bets that haven't expired yet
+    const { data, error } = await supabase
+        .from('bets')
+        .select('*')
+        .order('amount', { ascending: true });
+
+    if (error) {
+        console.error("Error fetching bets:", error);
+        return [];
+    }
+
+    if (!data) {
+        return [];
+    }
+
+    return data;
+}

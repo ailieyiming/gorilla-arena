@@ -22,11 +22,12 @@ export default function OnboardingPage() {
                 .single();
 
             if (existingUser) {
+                // Existing User -> Dashboard
                 localStorage.setItem("hunterName", existingUser.username);
                 localStorage.setItem("userId", existingUser.id);
-                router.push("/connect-health");
+                router.push("/dashboard");
             } else {
-                // Create new user
+                // New User -> Create -> Connect Health
                 const { data: newUser, error: insertError } = await supabase
                     .from('users')
                     .insert([{ username: huntName, points: 1000 }])
