@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { createBetAndDeductBalance } from "@/lib/supabase";
 
 export default function CreateGamePage() {
     const router = useRouter();
@@ -19,12 +20,28 @@ export default function CreateGamePage() {
 
     const expiryDate = calculateExpiryDate(effectiveDate, duration);
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         setIsLoading(true);
-        // Simulate creation delay
-        setTimeout(() => {
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+            alert("Please login first.");
+            router.push("/");
+            return;
+        }
+
+        try {
+            await createBetAndDeductBalance(
+                userId,
+                fee,
+                `Custom Hunt: ${duration} Days`,
+                "custom_bet"
+            );
             router.push("/create-success");
-        }, 1500);
+        } catch (error: any) {
+            console.error("Create game failed:", error);
+            alert(`Failed to create game: ${error.message || "Unknown error"}`);
+            setIsLoading(false);
+        }
     };
 
     return (

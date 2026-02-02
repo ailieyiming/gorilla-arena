@@ -2,18 +2,41 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { supabase, getUserActiveStake } from "@/lib/supabase";
 
 export default function DashboardPage() {
     const [hunterName, setHunterName] = useState("Loading...");
+    const [points, setPoints] = useState(1000);
+    const [activeStake, setActiveStake] = useState(0);
 
     useEffect(() => {
-        // Load persisted name
-        const storedName = localStorage.getItem("hunterName");
-        if (storedName) {
-            setHunterName(storedName);
-        } else {
-            setHunterName("UNKNOWN_SOLDIER");
-        }
+        const fetchUserData = async () => {
+            const userId = localStorage.getItem("userId");
+            if (!userId) {
+                setHunterName("UNKNOWN_SOLDIER");
+                return;
+            }
+
+            const { data, error } = await supabase
+                .from('users')
+                .select('username, points')
+                .eq('id', userId)
+                .single();
+
+            if (data) {
+                setHunterName(data.username);
+                setPoints(data.points);
+            } else {
+                console.error("Error fetching user data:", error);
+                setHunterName("ERROR_LOADING");
+            }
+
+            // Fetch Active Stake
+            const stake = await getUserActiveStake(userId);
+            setActiveStake(stake);
+        };
+
+        fetchUserData();
     }, []);
 
     return (
@@ -51,7 +74,7 @@ export default function DashboardPage() {
                     <div className="flex items-center gap-4">
                         <div className="hidden md:flex items-center gap-2 bg-[#162c1e] px-3 py-1.5 rounded border border-[#3a5545] shadow-[0_0_10px_rgba(6,249,107,0.1)]">
                             <span className="material-symbols-outlined text-[#06f96b] text-sm">account_balance_wallet</span>
-                            <span className="text-white font-bold text-sm tracking-wider">1,000</span>
+                            <span className="text-white font-bold text-sm tracking-wider">{points.toLocaleString()}</span>
                         </div>
                         <div className="text-right hidden sm:block">
                             <p className="text-[10px] uppercase font-bold text-[#9bbba8] leading-none">Soldier Status</p>
@@ -88,7 +111,7 @@ export default function DashboardPage() {
                                     <span className="text-[10px] uppercase font-bold text-[#9bbba8]">Your Stake</span>
                                     <span className="text-[#fa5538] text-[10px] font-bold">AT RISK</span>
                                 </div>
-                                <p className="text-3xl font-black text-white leading-none tracking-tighter">$50.00</p>
+                                <p className="text-3xl font-black text-white leading-none tracking-tighter">${activeStake.toFixed(2)}</p>
                                 <div className="flex gap-1 mt-2">
                                     <div className="h-1.5 flex-1 bg-[#fa5538] rounded-full"></div>
                                     <div className="h-1.5 flex-1 bg-[#3a5545] rounded-full"></div>

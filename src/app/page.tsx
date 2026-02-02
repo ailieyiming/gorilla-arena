@@ -1,8 +1,18 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+
 import React from 'react';
 
 export default function Home() {
+  const router = useRouter();
+
+  const handleJoin = (amount: number) => {
+    localStorage.setItem("selected_entry_fee", amount.toString());
+    router.push("/onboarding");
+  };
+
   return (
     <div className="font-display pb-20">
       {/* Top Navigation */}
@@ -169,11 +179,12 @@ export default function Home() {
                     <p className="text-[10px] uppercase font-bold tracking-widest text-alert-red">48H Remaining</p>
                   </div>
                 </div>
-                <a href="/onboarding" className="block w-full">
-                  <button className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest text-sm rounded-lg group-hover:shadow-[0_0_20px_rgba(6,249,107,0.4)] transition-all">
-                    Join the Hunt
-                  </button>
-                </a>
+                <button
+                  onClick={() => handleJoin(10)}
+                  className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest text-sm rounded-lg group-hover:shadow-[0_0_20px_rgba(6,249,107,0.4)] transition-all"
+                >
+                  Join the Hunt
+                </button>
               </div>
             </div>
 
@@ -206,11 +217,12 @@ export default function Home() {
                     <p className="text-[10px] uppercase font-bold tracking-widest text-alert-red">Starts in 6H</p>
                   </div>
                 </div>
-                <a href="/onboarding" className="block w-full">
-                  <button className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest text-sm rounded-lg group-hover:shadow-[0_0_20px_rgba(6,249,107,0.4)] transition-all">
-                    Join the Hunt
-                  </button>
-                </a>
+                <button
+                  onClick={() => handleJoin(25)}
+                  className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest text-sm rounded-lg group-hover:shadow-[0_0_20px_rgba(6,249,107,0.4)] transition-all"
+                >
+                  Join the Hunt
+                </button>
               </div>
             </div>
 
@@ -246,11 +258,12 @@ export default function Home() {
                     <p className="text-[10px] uppercase font-bold tracking-widest text-alert-red italic font-black">Limited Spots</p>
                   </div>
                 </div>
-                <a href="/onboarding" className="block w-full">
-                  <button className="w-full py-4 bg-white text-black font-black uppercase tracking-widest text-sm rounded-lg hover:bg-primary transition-all">
-                    Join the Hunt
-                  </button>
-                </a>
+                <button
+                  onClick={() => handleJoin(100)}
+                  className="w-full py-4 bg-white text-black font-black uppercase tracking-widest text-sm rounded-lg hover:bg-primary transition-all"
+                >
+                  Join the Hunt
+                </button>
               </div>
             </div>
           </div>

@@ -76,6 +76,33 @@
 #### [MODIFY] [history/page.tsx](file:///Users/yiming/Desktop/gorilla-arena/src/app/history/page.tsx)
 -   **Sidebar**: Remove the duplicate "Create Bet" link (ensure only one remains, preferably the primary action).
 
+## Supabase Integration
+
+### Configuration
+-   **Install**: `npm install @supabase/supabase-js`
+-   **Env**: Create `.env.local` with `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+-   **Client**: Create `src/lib/supabase.ts`.
+
+### Feature Updates
+
+#### [MODIFY] [onboarding/page.tsx](file:///Users/yiming/Desktop/gorilla-arena/src/app/onboarding/page.tsx)
+-   **Logic**:
+    -   On "Save & Enter", query `users` table by `username`.
+    -   If exists: fetch user data, store `user_id` in localStorage.
+    -   If new: insert into `users` (username, points: 1000), store `user_id`.
+
+#### [MODIFY] [dashboard/page.tsx](file:///Users/yiming/Desktop/gorilla-arena/src/app/dashboard/page.tsx)
+-   **Logic**:
+    -   Read `user_id` from localStorage.
+    -   Fetch `username` and `points` from `users` table.
+    -   Display real data in the UI.
+
+#### [MODIFY] [payment/page.tsx](file:///Users/yiming/Desktop/gorilla-arena/src/app/payment/page.tsx)
+-   **Logic**:
+    -   On "Verify Payment", insert record into `bets` table.
+    -   Deduct `amount` (e.g., 50 or 100) from `users` table points.
+
+
 ## Verification Plan
 
 ### UI Layout Checks

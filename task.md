@@ -27,4 +27,11 @@
 - [ ] **Verification** <!-- id: 24 -->
     - [ ] Verify Onboarding flow headers and animations <!-- id: 25 -->
     - [ ] Verify Dashboard navigation links <!-- id: 26 -->
-    - [ ] Verify History sidebar <!-- id: 27 -->
+    - [x] Verify History sidebar <!-- id: 27 -->
+- [ ] **Supabase Backend Integration** <!-- id: 28 -->
+    - [ ] Install `@supabase/supabase-js` <!-- id: 29 -->
+    - [ ] Configure `.env.local` <!-- id: 30 -->
+    - [ ] Create `src/lib/supabase.ts` client <!-- id: 31 -->
+    - [ ] Refactor Onboarding to use real auth/user table <!-- id: 32 -->
+    - [ ] Refactor Dashboard to fetch real data <!-- id: 33 -->
+    - [ ] Refactor Payment to handle transactions <!-- id: 34 -->

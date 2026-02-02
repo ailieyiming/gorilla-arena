@@ -2,16 +2,51 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 export default function OnboardingPage() {
     const router = useRouter();
     const [huntName, setHuntName] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (!huntName) return;
-        // Persist name for Dashboard
-        localStorage.setItem("hunterName", huntName);
-        router.push("/connect-health");
+        setIsLoading(true);
+
+        try {
+            // Check if user exists
+            const { data: existingUser, error: fetchError } = await supabase
+                .from('users')
+                .select('id, username')
+                .eq('username', huntName)
+                .single();
+
+            if (existingUser) {
+                localStorage.setItem("hunterName", existingUser.username);
+                localStorage.setItem("userId", existingUser.id);
+                router.push("/connect-health");
+            } else {
+                // Create new user
+                const { data: newUser, error: insertError } = await supabase
+                    .from('users')
+                    .insert([{ username: huntName, points: 1000 }])
+                    .select()
+                    .single();
+
+                if (insertError) throw insertError;
+
+                if (newUser) {
+                    localStorage.setItem("hunterName", newUser.username);
+                    localStorage.setItem("userId", newUser.id);
+                    router.push("/connect-health");
+                }
+            }
+        } catch (error) {
+            console.error("Error managing user:", error);
+            alert("Connection to Arena failed. Try again.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (

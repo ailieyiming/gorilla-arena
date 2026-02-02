@@ -1,8 +1,46 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase, createBetAndDeductBalance } from "@/lib/supabase";
 
 export default function PaymentPage() {
+    const router = useRouter();
+    const [isProcessing, setIsProcessing] = useState(false);
+
+    const handlePayment = async () => {
+        setIsProcessing(true);
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+            alert("User not found via neural link. Relog.");
+            setIsProcessing(false);
+            return;
+        }
+
+        try {
+            // Get Entry Fee from selection (default to 10 if missing)
+            const entryFee = parseInt(localStorage.getItem("selected_entry_fee") || "10", 10);
+
+            await createBetAndDeductBalance(
+                userId,
+                entryFee,
+                "Commuter Arena Entry",
+                "arena_join"
+            );
+
+            // Success
+            router.push("/dashboard");
+
+        } catch (err: any) {
+            console.error("Payment failed:", err);
+            // Show more detailed error for debugging
+            alert(`Payment transaction failed: ${err.message || JSON.stringify(err)}`);
+        } finally {
+            setIsProcessing(false);
+        }
+    };
+
     return (
         <div className="bg-[#050505] text-white min-h-screen relative selection:bg-[#0df20d] selection:text-black font-[family-name:var(--font-space-grotesk)]">
             <style jsx global>{`
@@ -119,14 +157,16 @@ export default function PaymentPage() {
                                         <input className="w-full bg-[#050505] border-2 border-[#283928] text-[#0df20d] font-display font-bold uppercase tracking-widest p-4 focus:ring-1 focus:ring-[#0df20d] focus:border-[#0df20d] transition-all outline-none" placeholder="E.g. 20231024-REF-001" type="text" />
                                     </div>
 
-                                    <Link href="/dashboard" className="w-full">
-                                        <button className="w-full group relative flex items-center justify-center h-16 bg-[#0df20d] hover:bg-white transition-all overflow-hidden border-b-4 border-black/20 active:translate-y-1 active:border-b-0">
-                                            <div className="flex items-center gap-3">
-                                                <span className="text-[#050505] text-lg font-black tracking-[0.15em] uppercase">Verify Payment</span>
-                                                <span className="material-symbols-outlined text-[#050505] group-hover:translate-x-1 transition-transform">bolt</span>
-                                            </div>
-                                        </button>
-                                    </Link>
+                                    <button
+                                        onClick={handlePayment}
+                                        disabled={isProcessing}
+                                        className="w-full group relative flex items-center justify-center h-16 bg-[#0df20d] hover:bg-white transition-all overflow-hidden border-b-4 border-black/20 active:translate-y-1 active:border-b-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-[#050505] text-lg font-black tracking-[0.15em] uppercase">{isProcessing ? "Processing..." : "Verify Payment"}</span>
+                                            {!isProcessing && <span className="material-symbols-outlined text-[#050505] group-hover:translate-x-1 transition-transform">bolt</span>}
+                                        </div>
+                                    </button>
 
                                     <div className="flex flex-col gap-1 items-center justify-center opacity-70">
                                         <p className="text-[9px] font-bold text-[#0df20d] animate-pulse tracking-widest uppercase">
