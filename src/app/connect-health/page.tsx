@@ -6,62 +6,61 @@ import Link from "next/link";
 
 export default function ConnectHealthPage() {
     const router = useRouter();
+    const [selectedProvider, setSelectedProvider] = useState<string | null>(null);
+    const [isSyncing, setIsSyncing] = useState(false);
+    const [syncProgress, setSyncProgress] = useState(0);
 
     const handleConnect = () => {
-        // Simulate connection delay then proceed
-        setTimeout(() => {
-            router.push("/payment");
-        }, 1500);
+        if (!selectedProvider) return;
+        setIsSyncing(true);
+
+        // Simulate sync progress
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 5;
+            setSyncProgress(progress);
+            if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    router.push("/payment");
+                }, 500);
+            }
+        }, 100);
     }
 
     return (
-        <div className="bg-void-black font-[family-name:var(--font-oswald)] min-h-screen text-white overflow-hidden relative">
+        <div className="bg-void-black font-[family-name:var(--font-oswald)] min-h-screen text-white overflow-hidden relative flex flex-col">
             <div className="absolute top-0 w-full h-[100px] z-10 pointer-events-none bg-gradient-to-t from-[rgba(0,255,65,0)] via-[rgba(0,255,65,0.05)] to-[rgba(0,255,65,0)]"></div>
 
-            <div className="flex flex-col md:flex-row min-h-screen relative z-20">
-                {/* Sidebar */}
-                <aside className="w-full md:w-72 border-r border-metal-gray flex flex-col bg-void-black p-8 justify-between">
-                    <div className="flex flex-col gap-10">
-                        <div className="flex items-center gap-4">
-                            <div
-                                className="bg-center bg-no-repeat aspect-square bg-cover size-14 border-2 border-predator-green shadow-[0_0_10px_rgba(0,255,65,0.3)]"
-                                style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuB1F3va_KqzxKyiUtOAy8ziiggHl7MhIC92nZCa6KkOESglzfokhneSc3vt3vWKagjuMUSUTLMowbf5LEJWAD5YBjyWCBpcs1w5ZuJhbzYuk1H6DT2VrRcYqxRDwoJIkxSFylNFMwoE9imiWZ6oiMwMym1k0AMdTLPs1qaX-L59hw3OFNgmnwbLpUtmXCuHlvNkmfjHASGr88q9ycT7z0bKfIx2_IeYaffZk0RRdR281hXaIvwEiv8-JBB6vVz9Qgib29a6kgeRQ0q1")' }}
-                            ></div>
-                            <div className="flex flex-col">
-                                <h1 className="text-white text-2xl font-black leading-none tracking-tighter uppercase">Gorilla Arena</h1>
-                                <p className="text-predator-green text-xs font-bold leading-normal uppercase tracking-[0.3em]">Betting Pit</p>
-                            </div>
-                        </div>
-                        <nav className="flex flex-col gap-1">
-                            <Link href="/" className="flex items-center gap-4 px-6 py-4 text-white/50 hover:text-predator-green hover:bg-predator-green/5 transition-all border-l-2 border-transparent hover:border-predator-green">
-                                <span className="material-symbols-outlined">house</span>
-                                <span className="text-md font-bold uppercase tracking-widest">Home</span>
-                            </Link>
-                            <Link href="#" className="flex items-center gap-4 px-6 py-4 text-white/50 hover:text-predator-green hover:bg-predator-green/5 transition-all border-l-2 border-transparent hover:border-predator-green">
-                                <span className="material-symbols-outlined">trophy</span>
-                                <span className="text-md font-bold uppercase tracking-widest">Bets</span>
-                            </Link>
-                            <Link href="#" className="flex items-center gap-4 px-6 py-4 bg-predator-green/10 text-predator-green border-l-2 border-predator-green">
-                                <span className="material-symbols-outlined">swords</span>
-                                <span className="text-md font-bold uppercase tracking-widest">Arena</span>
-                            </Link>
-                            <Link href="#" className="flex items-center gap-4 px-6 py-4 text-white/50 hover:text-predator-green hover:bg-predator-green/5 transition-all border-l-2 border-transparent hover:border-predator-green">
-                                <span className="material-symbols-outlined">person</span>
-                                <span className="text-md font-bold uppercase tracking-widest">Profile</span>
-                            </Link>
-                        </nav>
-                    </div>
-                    <div className="flex flex-col gap-4 border-t border-metal-gray pt-8 hidden md:flex">
-                        <div className="flex items-center gap-3">
-                            <div className="size-2 bg-predator-green shadow-[0_0_8px_rgba(0,255,65,0.8)]"></div>
-                            <span className="text-xs font-bold text-predator-green/70 uppercase tracking-widest">Neural Link: Active</span>
-                        </div>
-                    </div>
-                </aside>
+            {/* Top Navigation */}
+            <header className="flex items-center justify-between border-b border-metal-gray bg-void-black px-6 py-4 md:px-10 relative z-50">
+                <div className="flex items-center gap-3">
+                    <a href="/" className="text-white/50 hover:text-[#0df20d] transition-colors flex items-center gap-2 group">
+                        <span className="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                        <span className="text-xs font-bold uppercase tracking-widest hidden sm:block">Home</span>
+                    </a>
+                </div>
 
+                {/* Progress Bar */}
+                <div className="flex-1 max-w-md mx-4 md:mx-10 flex flex-col gap-1">
+                    <div className="flex justify-between items-end text-[10px] uppercase font-bold tracking-widest text-[#0df20d]">
+                        <span>Connect Source</span>
+                        <span>Step 2/3</span>
+                    </div>
+                    <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full bg-[#0df20d] w-2/3 shadow-[0_0_10px_#0df20d]"></div>
+                    </div>
+                </div>
+
+                <a href="/" className="flex items-center justify-center rounded-lg bg-white/5 p-2 hover:bg-white/10 transition-colors group">
+                    <span className="material-symbols-outlined text-white group-hover:text-[#0df20d] transition-colors">close</span>
+                </a>
+            </header>
+
+            <div className="flex flex-1 relative z-20 justify-center">
                 {/* Main Content */}
-                <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-12 bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.03)_0%,_transparent_70%)]">
-                    <div className="max-w-3xl w-full text-center">
+                <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-12 bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.03)_0%,_transparent_70%)] max-w-5xl">
+                    <div className="w-full text-center">
                         <h1 className="text-white tracking-[0.15em] text-4xl md:text-6xl font-black leading-none uppercase mb-4">
                             FORGE YOUR <span className="text-predator-green drop-shadow-[0_0_15px_rgba(0,255,65,0.5)]">BIOMETRICS</span>
                         </h1>
@@ -71,49 +70,60 @@ export default function ConnectHealthPage() {
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-8 mb-16">
-                            <button className="mechanical-border group flex flex-col items-center justify-center p-10 hover:border-predator-green">
-                                <div className="size-20 flex items-center justify-center bg-industrial-gray border border-metal-gray mb-6 group-hover:border-predator-green group-hover:bg-predator-green/10 transition-colors">
-                                    <span className="material-symbols-outlined text-5xl text-white group-hover:text-predator-green transition-colors">watch</span>
+                            <button
+                                onClick={() => setSelectedProvider('apple')}
+                                className={`mechanical-border group flex flex-col items-center justify-center p-10 transition-all ${selectedProvider === 'apple' ? 'border-predator-green bg-predator-green/5 shadow-[0_0_30px_rgba(0,255,65,0.1)]' : 'hover:border-predator-green'}`}
+                            >
+                                <div className={`size-20 flex items-center justify-center bg-industrial-gray border mb-6 transition-colors ${selectedProvider === 'apple' ? 'border-predator-green bg-predator-green/20' : 'border-metal-gray group-hover:border-predator-green group-hover:bg-predator-green/10'}`}>
+                                    <span className={`material-symbols-outlined text-5xl transition-colors ${selectedProvider === 'apple' ? 'text-predator-green' : 'text-white group-hover:text-predator-green'}`}>watch</span>
                                 </div>
                                 <span className="text-white text-xl font-bold tracking-[0.2em] uppercase">Connect Apple Health</span>
                                 <span className="text-predator-green/40 text-[10px] mt-2 uppercase font-bold tracking-widest">Sync Steps & Heart</span>
                             </button>
-                            <button className="mechanical-border group flex flex-col items-center justify-center p-10 hover:border-predator-green">
-                                <div className="size-20 flex items-center justify-center bg-industrial-gray border border-metal-gray mb-6 group-hover:border-predator-green group-hover:bg-predator-green/10 transition-colors">
-                                    <span className="material-symbols-outlined text-5xl text-white group-hover:text-predator-green transition-colors">fitness_center</span>
+                            <button
+                                onClick={() => setSelectedProvider('google')}
+                                className={`mechanical-border group flex flex-col items-center justify-center p-10 transition-all ${selectedProvider === 'google' ? 'border-predator-green bg-predator-green/5 shadow-[0_0_30px_rgba(0,255,65,0.1)]' : 'hover:border-predator-green'}`}
+                            >
+                                <div className={`size-20 flex items-center justify-center bg-industrial-gray border mb-6 transition-colors ${selectedProvider === 'google' ? 'border-predator-green bg-predator-green/20' : 'border-metal-gray group-hover:border-predator-green group-hover:bg-predator-green/10'}`}>
+                                    <span className={`material-symbols-outlined text-5xl transition-colors ${selectedProvider === 'google' ? 'text-predator-green' : 'text-white group-hover:text-predator-green'}`}>fitness_center</span>
                                 </div>
                                 <span className="text-white text-xl font-bold tracking-[0.2em] uppercase">Connect Google Fit</span>
                                 <span className="text-predator-green/40 text-[10px] mt-2 uppercase font-bold tracking-widest">Sync Activity Data</span>
                             </button>
                         </div>
 
-                        <div className="w-full px-4 md:px-12">
-                            <div className="flex items-center justify-between mb-3">
-                                <div className="flex items-center gap-3">
-                                    <div className="size-2 bg-predator-green animate-pulse"></div>
-                                    <h4 className="text-predator-green text-sm font-black tracking-[0.3em] uppercase">
-                                        Syncing Health Data...
-                                    </h4>
+                        <div className="w-full px-4 md:px-12 max-w-3xl mx-auto">
+                            {isSyncing ? (
+                                <div className="mb-12">
+                                    <div className="flex items-center justify-between mb-3">
+                                        <div className="flex items-center gap-3">
+                                            <div className="size-2 bg-predator-green animate-pulse"></div>
+                                            <h4 className="text-predator-green text-sm font-black tracking-[0.3em] uppercase">
+                                                Syncing Health Data...
+                                            </h4>
+                                        </div>
+                                        <span className="text-white text-sm font-bold tracking-widest">{syncProgress}% UPLOADED</span>
+                                    </div>
+                                    <div className="h-2 w-full bg-industrial-gray rounded-full overflow-hidden border border-metal-gray">
+                                        <div
+                                            className="h-full bg-predator-green shadow-[0_0_10px_#0df20d] transition-all duration-100 ease-linear"
+                                            style={{ width: `${syncProgress}%` }}
+                                        ></div>
+                                    </div>
                                 </div>
-                                <span className="text-white text-sm font-bold tracking-widest">78% UPLOADED</span>
-                            </div>
-                            <div className="flex mb-12 justify-center flex-wrap gap-y-2">
-                                {[...Array(12)].map((_, i) => (
-                                    <div key={`filled-${i}`} className="progress-segment filled"></div>
-                                ))}
-                                {[...Array(6)].map((_, i) => (
-                                    <div key={`empty-${i}`} className="progress-segment"></div>
-                                ))}
-                            </div>
+                            ) : (
+                                <div className="h-20 mb-6"></div> // Spacer to prevent layout shift
+                            )}
 
                             <button
                                 onClick={handleConnect}
-                                className="w-full group relative overflow-hidden h-20 bg-predator-green text-void-black text-2xl font-black tracking-[0.3em] uppercase transition-all hover:bg-white hover:shadow-[0_0_40px_rgba(0,255,65,0.6)]"
+                                disabled={!selectedProvider || isSyncing}
+                                className={`w-full group relative overflow-hidden h-20 text-void-black text-2xl font-black tracking-[0.3em] uppercase transition-all ${!selectedProvider || isSyncing ? 'bg-gray-800 text-gray-500 cursor-not-allowed' : 'bg-predator-green hover:bg-white hover:shadow-[0_0_40px_rgba(0,255,65,0.6)]'}`}
                             >
                                 <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(0,0,0,0.1)_50%,transparent_100%)]"></div>
                                 <div className="flex items-center justify-center gap-4 relative z-10">
-                                    <span>Proceed to the Arena</span>
-                                    <span className="material-symbols-outlined text-3xl">bolt</span>
+                                    <span>{isSyncing ? 'Syncing...' : 'Proceed to the Arena'}</span>
+                                    {!isSyncing && <span className="material-symbols-outlined text-3xl">bolt</span>}
                                 </div>
                             </button>
 

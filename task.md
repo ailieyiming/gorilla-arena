@@ -16,3 +16,15 @@
     - [ ] Display "Roast & Boast" card preview <!-- id: 13 -->
 - [ ] **Verification** <!-- id: 14 -->
     - [ ] Verify full navigation flow in browser <!-- id: 15 -->
+- [ ] **Onboarding Flow Refinement** <!-- id: 16 -->
+    - [ ] Update `/connect-health`, `/payment`, `/onboarding` to include progress bar header <!-- id: 17 -->
+    - [ ] Remove extra navigation from these pages <!-- id: 18 -->
+    - [ ] Implement Apple Health/Google Fit highlighting and sync animation in `/connect-health` <!-- id: 19 -->
+- [ ] **Dashboard Updates** <!-- id: 20 -->
+    - [ ] Sync Dashboard navigation with Landing Page (`Arena`, `Leaderboard`, `Stats`) <!-- id: 21 -->
+- [ ] **History Page Cleanup** <!-- id: 22 -->
+    - [ ] Remove duplicate "Create Bet" link in sidebar <!-- id: 23 -->
+- [ ] **Verification** <!-- id: 24 -->
+    - [ ] Verify Onboarding flow headers and animations <!-- id: 25 -->
+    - [ ] Verify Dashboard navigation links <!-- id: 26 -->
+    - [ ] Verify History sidebar <!-- id: 27 -->

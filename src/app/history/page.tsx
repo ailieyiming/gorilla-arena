@@ -81,10 +81,6 @@ export default function HistoryPage() {
                                     <span className="material-symbols-outlined text-[20px]">add_circle</span>
                                     <p className="text-sm font-medium tracking-widest uppercase">Create Bet</p>
                                 </Link>
-                                <Link href="/create-game" className="flex items-center gap-3 px-3 py-3 text-[#4e5664] hover:bg-[#0bda5e]/10 hover:text-[#0bda5e] transition-all">
-                                    <span className="material-symbols-outlined text-[20px]">add_circle</span>
-                                    <p className="text-sm font-medium tracking-widest uppercase">Create Bet</p>
-                                </Link>
                             </div>
                         </div>
                     </div>

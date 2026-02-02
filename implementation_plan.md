@@ -46,3 +46,40 @@
 3.  **Submit Game**: Fill form on Create Game page, click Confirm, verify navigation to `/create-success`.
 4.  **Copy Link**: Click "Copy Link" on Success page, verify visual feedback (toast/alert).
 5.  **Share Results**: Access `/share-results` (via History page link), verify layout and buttons.
+
+## UI/UX Refinement Tasks
+
+### Onboarding Flow (`/onboarding`, `/connect-health`, `/payment`)
+#### [MODIFY] [onboarding/page.tsx](file:///Users/yiming/Desktop/gorilla-arena/src/app/onboarding/page.tsx)
+#### [MODIFY] [connect-health/page.tsx](file:///Users/yiming/Desktop/gorilla-arena/src/app/connect-health/page.tsx)
+#### [MODIFY] [payment/page.tsx](file:///Users/yiming/Desktop/gorilla-arena/src/app/payment/page.tsx)
+-   **Header**: Replace existing nav with a simplified header:
+    -   Left: "Home" link (icon or text).
+    -   Center: Progress Bar (visual indicator).
+    -   Right: "Close" (X) button.
+-   **Content**: Remove any other sidebars or footers unless essential.
+
+### Connect Health Specifics (`/connect-health`)
+#### [MODIFY] [connect-health/page.tsx](file:///Users/yiming/Desktop/gorilla-arena/src/app/connect-health/page.tsx)
+-   **Selection State**: Add visual highlighting (border/bg color) when Apple Health or Google Fit is selected.
+-   **Sync Animation**: Implement a "filling up" loading bar animation for the "Syncing data" state.
+
+### Dashboard (`/dashboard`)
+#### [MODIFY] [dashboard/page.tsx](file:///Users/yiming/Desktop/gorilla-arena/src/app/dashboard/page.tsx)
+-   **Navigation**: Update top nav links to match Landing Page:
+    -   `Arena`
+    -   `Leaderboard`
+    -   `Stats`
+-   **User Profile**: Ensure Avatar and Rank display remains intact.
+
+### History (`/history`)
+#### [MODIFY] [history/page.tsx](file:///Users/yiming/Desktop/gorilla-arena/src/app/history/page.tsx)
+-   **Sidebar**: Remove the duplicate "Create Bet" link (ensure only one remains, preferably the primary action).
+
+## Verification Plan
+
+### UI Layout Checks
+1.  **Onboarding**: Visit `/onboarding`, `/connect-health`, `/payment`. Check header consistency and progress bar.
+2.  **Connect Health**: Click health providers, verify highlight. Click sync/next, verify animation.
+3.  **Dashboard**: Verify top navigation links match requirements.
+4.  **History**: Verify sidebar links are clean and correct.

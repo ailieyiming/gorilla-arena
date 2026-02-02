@@ -25,25 +25,28 @@ export default function PaymentPage() {
 
             <div className="flex h-full grow flex-col min-h-screen">
                 {/* Top Navigation Bar */}
-                <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#283928] px-10 py-4 bg-[#050505]/80 backdrop-blur-md sticky top-0 z-40">
-                    <div className="flex items-center gap-4 text-[#0df20d]">
-                        <div className="size-6">
-                            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
-                            </svg>
-                        </div>
-                        <h2 className="text-white text-xl font-bold leading-tight tracking-[-0.015em] font-display uppercase italic">GORILLA ARENA</h2>
+                <header className="flex items-center justify-between border-b border-metal-gray bg-[#050505] px-6 py-4 md:px-10 relative z-50">
+                    <div className="flex items-center gap-3">
+                        <a href="/" className="text-white/50 hover:text-[#0df20d] transition-colors flex items-center gap-2 group">
+                            <span className="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                            <span className="text-xs font-bold uppercase tracking-widest hidden sm:block">Home</span>
+                        </a>
                     </div>
-                    <div className="hidden md:flex flex-1 justify-end gap-8">
-                        <div className="flex items-center gap-9">
-                            <a className="text-white/70 hover:text-[#0df20d] text-xs font-bold leading-normal tracking-widest uppercase transition-colors" href="/">ARENAS</a>
-                            <a className="text-white/70 hover:text-[#0df20d] text-xs font-bold leading-normal tracking-widest uppercase transition-colors" href="#">RANKINGS</a>
-                            <a className="text-white/70 hover:text-[#0df20d] text-xs font-bold leading-normal tracking-widest uppercase transition-colors" href="#">PROFILE</a>
+
+                    {/* Progress Bar */}
+                    <div className="flex-1 max-w-md mx-4 md:mx-10 flex flex-col gap-1">
+                        <div className="flex justify-between items-end text-[10px] uppercase font-bold tracking-widest text-[#0df20d]">
+                            <span>Payment</span>
+                            <span>Step 3/3</span>
                         </div>
-                        <button className="flex min-w-[120px] cursor-pointer items-center justify-center rounded-sm h-10 px-4 bg-[#0df20d] text-[#050505] text-xs font-black leading-normal tracking-widest uppercase hover:bg-white transition-all">
-                            <span className="truncate">S$ 0.00</span>
-                        </button>
+                        <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-full bg-[#0df20d] w-full shadow-[0_0_10px_#0df20d]"></div>
+                        </div>
                     </div>
+
+                    <a href="/" className="flex items-center justify-center rounded-lg bg-white/5 p-2 hover:bg-white/10 transition-colors group">
+                        <span className="material-symbols-outlined text-white group-hover:text-[#0df20d] transition-colors">close</span>
+                    </a>
                 </header>
 
                 <main className="flex-1 flex flex-col items-center justify-center py-12 px-4 relative">

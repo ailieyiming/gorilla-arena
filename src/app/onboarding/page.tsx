@@ -19,16 +19,26 @@ export default function OnboardingPage() {
             {/* Top Navigation */}
             <header className="flex items-center justify-between border-b border-white/10 px-6 py-4 md:px-10">
                 <div className="flex items-center gap-3">
-                    <div className="text-[#0df20d]">
-                        <svg className="size-8" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
-                        </svg>
-                    </div>
-                    <h2 className="text-xl font-bold tracking-tighter text-white">GORILLA ARENA</h2>
+                    <a href="/" className="text-white/50 hover:text-[#0df20d] transition-colors flex items-center gap-2 group">
+                        <span className="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                        <span className="text-xs font-bold uppercase tracking-widest hidden sm:block">Home</span>
+                    </a>
                 </div>
-                <button className="flex items-center justify-center rounded-lg bg-white/5 p-2 hover:bg-white/10 transition-colors">
-                    <span className="material-symbols-outlined text-white">settings</span>
-                </button>
+
+                {/* Progress Bar */}
+                <div className="flex-1 max-w-md mx-4 md:mx-10 flex flex-col gap-1">
+                    <div className="flex justify-between items-end text-[10px] uppercase font-bold tracking-widest text-[#0df20d]">
+                        <span>Setup ID</span>
+                        <span>Step 1/3</span>
+                    </div>
+                    <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full bg-[#0df20d] w-1/3 shadow-[0_0_10px_#0df20d]"></div>
+                    </div>
+                </div>
+
+                <a href="/" className="flex items-center justify-center rounded-lg bg-white/5 p-2 hover:bg-white/10 transition-colors group">
+                    <span className="material-symbols-outlined text-white group-hover:text-[#0df20d] transition-colors">close</span>
+                </a>
             </header>
 
             {/* Main Content Container */}

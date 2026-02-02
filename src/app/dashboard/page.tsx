@@ -44,10 +44,9 @@ export default function DashboardPage() {
                         <h2 className="text-xl font-black tracking-tighter uppercase italic">Gorilla Arena <span className="text-[#06f96b]">// Survival</span></h2>
                     </div>
                     <nav className="hidden md:flex items-center gap-8 uppercase font-bold text-xs tracking-widest text-[#9bbba8]">
-                        <a className="hover:text-[#06f96b] transition-colors border-b-2 border-[#06f96b] pb-1" href="#">Arena</a>
-                        <a className="hover:text-[#06f96b] transition-colors" href="#">Squads</a>
-                        <a className="hover:text-[#06f96b] transition-colors" href="#">Armory</a>
-                        <a className="hover:text-[#06f96b] transition-colors" href="#">Market</a>
+                        <Link className="hover:text-[#06f96b] transition-colors border-b-2 border-[#06f96b] pb-1" href="/">Arenas</Link>
+                        <a className="hover:text-[#06f96b] transition-colors" href="#">Leaderboard</a>
+                        <a className="hover:text-[#06f96b] transition-colors" href="#">Stats</a>
                     </nav>
                     <div className="flex items-center gap-4">
                         <div className="text-right hidden sm:block">
