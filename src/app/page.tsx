@@ -41,8 +41,8 @@ export default function Home() {
           </div>
           <nav className="hidden md:flex items-center gap-10">
             <a href="#active-hunts" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors">Arenas</a>
-            <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors">Leaderboard</a>
-            <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors">Stats</a>
+            <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors opacity-40 cursor-not-allowed pointer-events-none">Leaderboard</a>
+            <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors opacity-40 cursor-not-allowed pointer-events-none">Stats</a>
           </nav>
           <div className="flex items-center gap-4">
             <a href="/onboarding">
@@ -86,7 +86,7 @@ export default function Home() {
                   ENTER THE ARENA
                 </button>
               </a>
-              <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:bg-white hover:text-black transition-all">
+              <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:bg-white hover:text-black transition-all opacity-40 cursor-not-allowed pointer-events-none">
                 HOW IT WORKS
               </button>
             </div>
