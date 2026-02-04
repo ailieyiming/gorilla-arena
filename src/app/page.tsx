@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from 'next/link';
 import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import { getActivePublicBets } from "@/lib/supabase";
@@ -41,6 +42,7 @@ export default function Home() {
           </div>
           <nav className="hidden md:flex items-center gap-10">
             <a href="#active-hunts" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors">Arenas</a>
+            <Link href="/create-game" className="text-sm font-bold uppercase tracking-widest text-[#06f96b] hover:text-white transition-colors">Create</Link>
             <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors opacity-40 cursor-not-allowed pointer-events-none">Leaderboard</a>
             <a href="#" className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors opacity-40 cursor-not-allowed pointer-events-none">Stats</a>
           </nav>

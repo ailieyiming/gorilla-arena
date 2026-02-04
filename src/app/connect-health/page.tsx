@@ -69,7 +69,7 @@ export default function ConnectHealthPage() {
                             <span className="text-white font-bold border-b border-predator-green/30">NO DATA, NO GLORY.</span>
                         </p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-8 mb-16">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-8 mb-16">
                             <button
                                 onClick={() => setSelectedProvider('apple')}
                                 className={`mechanical-border group flex flex-col items-center justify-center p-10 transition-all ${selectedProvider === 'apple' ? 'border-predator-green bg-predator-green/5 shadow-[0_0_30px_rgba(0,255,65,0.1)]' : 'hover:border-predator-green'}`}
@@ -89,6 +89,16 @@ export default function ConnectHealthPage() {
                                 </div>
                                 <span className="text-white text-xl font-bold tracking-[0.2em] uppercase">Connect Google Fit</span>
                                 <span className="text-predator-green/40 text-[10px] mt-2 uppercase font-bold tracking-widest">Sync Activity Data</span>
+                            </button>
+                            <button
+                                onClick={() => setSelectedProvider('manual')}
+                                className={`mechanical-border group flex flex-col items-center justify-center p-10 transition-all ${selectedProvider === 'manual' ? 'border-predator-green bg-predator-green/5 shadow-[0_0_30px_rgba(0,255,65,0.1)]' : 'hover:border-predator-green'}`}
+                            >
+                                <div className={`size-20 flex items-center justify-center bg-industrial-gray border mb-6 transition-colors ${selectedProvider === 'manual' ? 'border-predator-green bg-predator-green/20' : 'border-metal-gray group-hover:border-predator-green group-hover:bg-predator-green/10'}`}>
+                                    <span className={`material-symbols-outlined text-5xl transition-colors ${selectedProvider === 'manual' ? 'text-predator-green' : 'text-white group-hover:text-predator-green'}`}>upload_file</span>
+                                </div>
+                                <span className="text-white text-xl font-bold tracking-[0.2em] uppercase">Manual Entry</span>
+                                <span className="text-predator-green/40 text-[10px] mt-2 uppercase font-bold tracking-widest">Screenshot Proof</span>
                             </button>
                         </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createBetAndDeductBalance } from "@/lib/supabase";
@@ -11,6 +11,14 @@ export default function CreateGamePage() {
     const [duration, setDuration] = useState(7);
     const [fee, setFee] = useState(50);
     const [effectiveDate, setEffectiveDate] = useState(new Date().toISOString().split('T')[0]);
+    const [dataSource, setDataSource] = useState("manual");
+
+    useEffect(() => {
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+            router.push("/onboarding");
+        }
+    }, [router]);
 
     const calculateExpiryDate = (start: string, days: number) => {
         const date = new Date(start);
@@ -212,9 +220,36 @@ export default function CreateGamePage() {
                                 </div>
                             </div>
 
+                            {/* Data Source Section */}
+                            <div className="bg-background-dark border border-border-dark p-8 rounded shadow-sm">
+                                <h3 className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-6 border-b border-primary/20 pb-2 inline-block">03. Data Verification</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <label className="cursor-pointer">
+                                        <input type="radio" name="dataSource" value="manual" className="peer sr-only" checked={dataSource === 'manual'} onChange={() => setDataSource('manual')} />
+                                        <div className="p-6 border border-border-dark bg-field-dark rounded-lg hover:border-primary/50 peer-checked:border-primary peer-checked:bg-primary/10 transition-all flex flex-col items-center text-center gap-3">
+                                            <span className="material-symbols-outlined text-3xl text-gray-400 peer-checked:text-primary">upload_file</span>
+                                            <div>
+                                                <div className="font-bold text-white uppercase tracking-wider text-sm">Manual Verification</div>
+                                                <div className="text-xs text-gray-500 mt-1">Upload daily proof to community chat</div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <label className="cursor-pointer opacity-50">
+                                        <input type="radio" name="dataSource" value="api" className="peer sr-only" disabled />
+                                        <div className="p-6 border border-border-dark bg-field-dark rounded-lg flex flex-col items-center text-center gap-3 cursor-not-allowed">
+                                            <span className="material-symbols-outlined text-3xl text-gray-600">api</span>
+                                            <div>
+                                                <div className="font-bold text-gray-400 uppercase tracking-wider text-sm">API Integration</div>
+                                                <div className="text-xs text-gray-600 mt-1">Apple Health / Google Fit (Coming Soon)</div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
                             {/* Visibility Section */}
                             <div className="bg-background-dark border border-border-dark p-8 rounded shadow-sm">
-                                <h3 className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-6 border-b border-primary/20 pb-2 inline-block">03. Arena Visibility</h3>
+                                <h3 className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-6 border-b border-primary/20 pb-2 inline-block">04. Arena Visibility</h3>
                                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                                     <div className="flex-1">
                                         <h4 className="text-lg font-bold text-white uppercase mb-1">Privacy Mode</h4>
@@ -233,6 +268,11 @@ export default function CreateGamePage() {
 
                             {/* CTA Section */}
                             <div className="pt-4 mb-20">
+                                <div className="bg-yellow-500/10 border border-yellow-500/50 p-3 rounded mb-6 text-center animate-pulse">
+                                    <p className="text-yellow-500 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                                        ⚠️ DEMO MODE: No actual payment required. Click to proceed.
+                                    </p>
+                                </div>
                                 <button
                                     onClick={handleConfirm}
                                     disabled={isLoading}

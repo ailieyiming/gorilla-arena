@@ -157,6 +157,12 @@ export default function PaymentPage() {
                                         <input className="w-full bg-[#050505] border-2 border-[#283928] text-[#0df20d] font-display font-bold uppercase tracking-widest p-4 focus:ring-1 focus:ring-[#0df20d] focus:border-[#0df20d] transition-all outline-none" placeholder="E.g. 20231024-REF-001" type="text" />
                                     </div>
 
+                                    <div className="mt-4 mb-2 bg-yellow-500/10 border border-yellow-500/50 p-3 rounded text-center animate-pulse">
+                                        <p className="text-yellow-500 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                                            ⚠️ DEMO MODE: No actual payment required. Click to proceed.
+                                        </p>
+                                    </div>
+
                                     <button
                                         onClick={handlePayment}
                                         disabled={isProcessing}

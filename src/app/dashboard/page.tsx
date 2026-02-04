@@ -72,6 +72,12 @@ export default function DashboardPage() {
                         <a className="hover:text-[#06f96b] transition-colors" href="#">Stats</a>
                     </nav>
                     <div className="flex items-center gap-4">
+                        <Link href="/create-game">
+                            <button className="bg-[#06f96b] text-black px-4 py-2 text-xs font-black uppercase tracking-widest rounded hover:bg-white transition-colors flex items-center gap-2">
+                                <span className="material-symbols-outlined text-sm">add</span>
+                                Create New Hunt
+                            </button>
+                        </Link>
                         <div className="hidden md:flex items-center gap-2 bg-[#162c1e] px-3 py-1.5 rounded border border-[#3a5545] shadow-[0_0_10px_rgba(6,249,107,0.1)]">
                             <span className="material-symbols-outlined text-[#06f96b] text-sm">account_balance_wallet</span>
                             <span className="text-white font-bold text-sm tracking-wider">{points.toLocaleString()}</span>
