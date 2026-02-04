@@ -1,10 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function HistoryPage() {
+    const router = useRouter();
     const [hunterName, setHunterName] = useState("Loading...");
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut();
+        router.push("/");
+    };
 
     useEffect(() => {
         // Load persisted name
@@ -58,10 +67,27 @@ export default function HistoryPage() {
                             <p className="text-[10px] text-[#4e5664] font-bold leading-none tracking-widest uppercase">Alpha Hunter</p>
                             <p className="text-xs text-[#0bda5e] font-bold uppercase tracking-widest">{hunterName}</p>
                         </div>
-                        <div
-                            className="bg-center bg-no-repeat aspect-square bg-cover rounded-none size-10 ring-1 ring-[#0bda5e]/50"
-                            style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuA3ZLTCgBh_zpwp66U9JOv-uerG7BsoXJBvwe4UZMlM7HLn8T4vt6U4BbvRRrDwrmzJmE2IrnslX1gAbGB8KNlYXrvxuLHJWAn4ibKgr5fzlIxvQbKJNjbGBfa0YYwpbPydLdsCIPzFe8MR8dSKBcni4UXaloCtVJcxDnNLm62AvDu0iqGrm2x7Vh_MR9sePT52t7F9hayG20scf-Y9CgD_NEpuldIKd8Vc9S4hmS1bp82HdfUOvZQNg9WzmOVNUEZSpl1-zHbQyWL4')" }}
-                        ></div>
+                        <div className="relative z-50">
+                            <div
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                className="bg-center bg-no-repeat aspect-square bg-cover rounded-none size-10 ring-1 ring-[#0bda5e]/50 cursor-pointer hover:ring-[#0bda5e] transition-all"
+                                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuA3ZLTCgBh_zpwp66U9JOv-uerG7BsoXJBvwe4UZMlM7HLn8T4vt6U4BbvRRrDwrmzJmE2IrnslX1gAbGB8KNlYXrvxuLHJWAn4ibKgr5fzlIxvQbKJNjbGBfa0YYwpbPydLdsCIPzFe8MR8dSKBcni4UXaloCtVJcxDnNLm62AvDu0iqGrm2x7Vh_MR9sePT52t7F9hayG20scf-Y9CgD_NEpuldIKd8Vc9S4hmS1bp82HdfUOvZQNg9WzmOVNUEZSpl1-zHbQyWL4')" }}
+                            ></div>
+
+                            {isMenuOpen && (
+                                <div className="absolute right-0 mt-2 w-48 bg-[#050505] border border-[#0bda5e]/50 shadow-[0_0_15px_rgba(11,218,94,0.1)] z-50">
+                                    <button
+                                        onClick={handleLogout}
+                                        className="w-full text-left px-4 py-3 text-sm font-bold text-[#ff4d4d] hover:bg-[#ff4d4d]/10 transition-colors uppercase tracking-widest"
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <span className="material-symbols-outlined text-sm">logout</span>
+                                            Sign Out
+                                        </div>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </header>

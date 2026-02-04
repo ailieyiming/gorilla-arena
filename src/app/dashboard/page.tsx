@@ -1,13 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase, getUserActiveStake } from "@/lib/supabase";
 
 export default function DashboardPage() {
+    const router = useRouter();
     const [hunterName, setHunterName] = useState("Loading...");
     const [points, setPoints] = useState(1000);
     const [activeStake, setActiveStake] = useState(0);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut();
+        router.push("/");
+    };
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -86,9 +94,33 @@ export default function DashboardPage() {
                             <p className="text-[10px] uppercase font-bold text-[#9bbba8] leading-none">Soldier Status</p>
                             <p className="text-[#06f96b] font-bold tracking-tight">RANK: SILVER BACK</p>
                         </div>
-                        <Link href="/history">
-                            <div className="w-10 h-10 border-2 border-[#06f96b] rounded-lg bg-cover bg-center cursor-pointer hover:border-white transition-colors" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCuB4G420-D3HS8u-H4ZUUeXci_W0hDXnAQsLVkWc4m7aJGhxbyP3BUoRdGsAdJ1hOIeolfv_ztrU10F-tptX20P17R125T4uRa11c0rZaN8HIClo6VIBrfJBHVnVTTrnrqwGODPrYjoxqASvotv4f8hIo42cImGrsltpeW2rKKAiHGBjOgc0c21Kq9CNP1LGX-iMpj4GW1Ipd9AD6Fw9ftxzr8rUbSDlz4L5zvHXHoc3Rm4qXtBgaAo9DO42TLZjR6F6dFDJkKadqx')" }}></div>
-                        </Link>
+                        <div className="relative z-50">
+                            <div
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                className="w-10 h-10 border-2 border-[#06f96b] rounded-lg bg-cover bg-center cursor-pointer hover:border-white transition-colors"
+                                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCuB4G420-D3HS8u-H4ZUUeXci_W0hDXnAQsLVkWc4m7aJGhxbyP3BUoRdGsAdJ1hOIeolfv_ztrU10F-tptX20P17R125T4uRa11c0rZaN8HIClo6VIBrfJBHVnVTTrnrqwGODPrYjoxqASvotv4f8hIo42cImGrsltpeW2rKKAiHGBjOgc0c21Kq9CNP1LGX-iMpj4GW1Ipd9AD6Fw9ftxzr8rUbSDlz4L5zvHXHoc3Rm4qXtBgaAo9DO42TLZjR6F6dFDJkKadqx')" }}
+                            ></div>
+
+                            {isMenuOpen && (
+                                <div className="absolute right-0 mt-2 w-48 bg-[#162c1e] border border-[#3a5545] rounded-lg shadow-xl overflow-hidden">
+                                    <Link href="/history" className="block px-4 py-3 text-sm font-bold text-gray-300 hover:bg-[#3a5545] hover:text-white transition-colors uppercase tracking-wider">
+                                        <div className="flex items-center gap-2">
+                                            <span className="material-symbols-outlined text-sm">history</span>
+                                            History
+                                        </div>
+                                    </Link>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="w-full text-left px-4 py-3 text-sm font-bold text-red-500 hover:bg-[#3a5545] hover:text-red-400 transition-colors uppercase tracking-wider border-t border-[#3a5545]"
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <span className="material-symbols-outlined text-sm">logout</span>
+                                            Sign Out
+                                        </div>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </header>
 
