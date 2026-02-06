@@ -15,6 +15,7 @@ const ARENA_IMAGES = [
 export default function Home() {
   const router = useRouter();
   const [activeBets, setActiveBets] = useState<any[]>([]);
+  const [showRules, setShowRules] = useState(false);
 
   useEffect(() => {
     async function loadBets() {
@@ -88,7 +89,10 @@ export default function Home() {
                   ENTER THE ARENA
                 </button>
               </a>
-              <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:bg-white hover:text-black transition-all opacity-40 cursor-not-allowed pointer-events-none">
+              <button
+                onClick={() => setShowRules(true)}
+                className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:bg-white hover:text-black transition-all"
+              >
                 HOW IT WORKS
               </button>
             </div>
@@ -312,6 +316,70 @@ export default function Home() {
 
         {/* Global Scanline Overlay */}
         <div className="fixed inset-0 scanline opacity-[0.03] z-[100] pointer-events-none"></div>
+
+        {/* Rules Modal */}
+        {showRules && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <div className="bg-black border-2 border-[#00ff00] p-8 max-w-md w-full relative shadow-[0_0_50px_rgba(0,255,0,0.2)]">
+              <button
+                onClick={() => setShowRules(false)}
+                className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"
+                aria-label="Close"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+
+              <h2 className="text-3xl font-black text-[#00ff00] uppercase tracking-tighter italic mb-8">
+                THE PROTOCOL
+              </h2>
+
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-white font-bold uppercase tracking-widest text-lg mb-1">
+                    1. STAKE.
+                  </h3>
+                  <p className="text-gray-400 font-medium">
+                    Join an arena. Pay the entry fee. Funds are secured in the Pot. Change your mind? <strong className="text-white">100% Money-Back Guarantee</strong> within the first 24 hours.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-white font-bold uppercase tracking-widest text-lg mb-1">
+                    2. SWEAT.
+                  </h3>
+                  <p className="text-gray-400 font-medium">
+                    Verify your daily grind (Steps/Gym etc). One missed day = elimination.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-white font-bold uppercase tracking-widest text-lg mb-1">
+                    3. SURVIVE.
+                  </h3>
+                  <p className="text-gray-400 font-medium">
+                    Miss a day? You forfeit your stake. Survive the streak? You get your <strong className="text-white">Full Principal Back</strong> + a share of the profit from the dropouts.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/10">
+                <p className="text-[10px] text-gray-500 leading-relaxed">
+                  *HOUSE RULES: Platform takes 15% of the pot as a service fee. <strong className="text-gray-400">No-Lose Guarantee</strong>: If everyone wins, we waive our fee to ensure you never lose money when you win.
+                </p>
+                <p className="text-[10px] text-gray-500 mt-2">
+                  *DEMO MODE: Currently using virtual points for testing. No actual credit card required.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setShowRules(false)}
+                className="w-full mt-6 bg-[#00ff00] text-black py-4 font-black uppercase tracking-widest hover:bg-white transition-colors"
+              >
+                FIRE UP
+              </button>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
